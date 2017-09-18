@@ -31,10 +31,24 @@ namespace LogIn.Controllers
                 return View();
             }
             HttpContext.Session.SetString("LoggedInUser", JsonConvert.SerializeObject(DB_User));
-            return RedirectToAction("Logged_In");
+            return RedirectToAction("Profile");
         }
-        public IActionResult Logged_In()
+        public IActionResult Profile()
         {
+            User LoggedIn_User = null;
+            try
+            {
+                LoggedIn_User = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("LoggedInUser"));
+            }
+            catch
+            {
+
+            }
+                if (LoggedIn_User == null)
+            {
+                return RedirectToAction("login");
+            }
+                
             return View();
         }
         public IActionResult Index()
