@@ -52,6 +52,18 @@ namespace LogIn.Controllers
                 
             return View();
         }
+        [HttpGet]
+        public IActionResult AddNewUser()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddNewUser(User MKS)
+        {
+            DB.User.Add(MKS);
+            DB.SaveChanges();
+            return View();
+        }
         public IActionResult Index()
         {
             return View();
