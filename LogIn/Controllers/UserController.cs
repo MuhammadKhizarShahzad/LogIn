@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using LogIn.Models;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace LogIn.Controllers
 {
@@ -28,8 +30,8 @@ namespace LogIn.Controllers
                 ViewBag.msg = "Invaild Usernaem/Pasword";
                 return View();
             }
-            //HttpContext.Session.SetString();
-            return View();
+            HttpContext.Session.SetString("LoggedInUser", JsonConvert.SerializeObject(DB_User));
+            return RedirectToAction("Logged_In");
         }
         public IActionResult Logged_In()
         {

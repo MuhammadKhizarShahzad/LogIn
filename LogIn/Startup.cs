@@ -51,7 +51,8 @@ namespace LogIn
                 .AddDefaultTokenProviders();
 
             services.AddMvc();
-
+            services.AddSession();
+            services.AddDistributedMemoryCache();
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
@@ -74,6 +75,7 @@ namespace LogIn
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseSession();
             app.UseStaticFiles();
 
             app.UseIdentity();
