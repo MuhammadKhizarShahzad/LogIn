@@ -55,16 +55,43 @@ namespace LogIn.Controllers
         [HttpGet]
         public IActionResult AddNewUser()
         {
+            User db_user = null;
+            try
+            {
+                db_user = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("loggedinuser"));
+            }
+            catch
+            {
+
+            }
+            if (db_user == null)
+            {
+                return RedirectToAction("login");
+            }
             return View();
         }
         [HttpPost]
         public IActionResult AddNewUser(User MKS)
         {
-            DB.User.Add(MKS);
-            DB.SaveChanges();
+            try
+            {
+                DB.User.Add(MKS);
+                DB.SaveChanges();
+                return RedirectToAction("ViewALLUser");
+            }
+            catch
+            {
+                ViewBag.error = "Unable to save";
+            }
             return View();
         }
-        public IActionResult Index()
+        [HttpGet]
+        public IActionResult ViewALLUser()
+        {
+            IList<User> AllUser = DB.User.ToList<User>();
+            return View(AllUser);
+        }
+        public IActionResult Admin_Login_or_Not()
         {
             return View();
         }
