@@ -1,4 +1,4 @@
-@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +36,32 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                 </ul>
-                @await Html.PartialAsync("_LoginPartial")
+                @*@await Html.PartialAsync("_LoginPartial")*@
+                *@{ 
+                    User LoggedIN = null;
+                    try
+                    {
+                        LoggedIN = ViewBag.Logged_IN;
+
+
+                    }
+                    catch
+                    {
+
+
+                    }
+                    if (LoggedIN == null)
+                    {
+
+
+                    }
+                    else
+                    {
+                        <span class="glyphicon glyphicon-user"><a href="#" class="btn btn-success">@LoggedIN.DiplayName</a>,<a href="/User/login" class="btn btn-danger">Logout</a></span>
+
+                    }
+
+                }
             </div>
         </div>
     </nav>

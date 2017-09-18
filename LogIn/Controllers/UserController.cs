@@ -48,6 +48,7 @@ namespace LogIn.Controllers
             {
                 return RedirectToAction("login");
             }
+            ViewBag.Logged_IN = LoggedIn_User;
                 
             return View();
         }
